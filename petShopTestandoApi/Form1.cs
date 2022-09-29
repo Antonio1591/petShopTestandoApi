@@ -13,11 +13,12 @@ namespace petShopTestandoApi
 {
     public partial class Form1 : Form
     {
-        Pessoa pessoa = new Pessoa();
         public Form1()
         {
             InitializeComponent();
+
         }
+
 
         public async Task retornaAsync()
         {
@@ -25,14 +26,18 @@ namespace petShopTestandoApi
             client.BaseAddress = new Uri("https://localhost:5001/api/");
             var response = await client.GetAsync("Pessoa");
             var context = await response.Content.ReadAsStringAsync();
-             JsonConvert.DeserializeObject<Pessoa[]>(context).ToList();
-        }
+         var pessoas=  JsonConvert.DeserializeObject<Pessoa[]>(context).ToList();
+            foreach (var item in pessoas)
+            {
+                MessageBox.Show(item.Nome);
+            }
 
+        }
+     
+          
         private void btnGravarBanco_Click(object sender, EventArgs e)
         {
-            
             retornaAsync();
-            MessageBox.Show(pessoa.Nome);
         }
     }
 }   
