@@ -2,7 +2,7 @@
 
 public static class PessoaMapping
 {
-    public static PessoaViewModel ParaViewModel(this Pessoa pessoa)
+    public static PessoaViewModel ParaViewModel(this Cliente pessoa)
     {
         return new PessoaViewModel()
         {

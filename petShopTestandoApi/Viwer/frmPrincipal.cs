@@ -35,5 +35,11 @@ namespace petShopTestandoApi.Viwer
             frmCadastroAnimais frmCadastroAnimais = new frmCadastroAnimais();
             frmCadastroAnimais.Show();
         }
+
+        private void cidadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCadastroCidade frmCadastroCidade = new frmCadastroCidade();
+            frmCadastroCidade.Show();
+        }
     }
 }

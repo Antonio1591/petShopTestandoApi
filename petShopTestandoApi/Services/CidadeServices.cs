@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using petShopTestandoApi.Model.Domain;
+using petShopTestandoApi.Model.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -30,6 +33,22 @@ namespace petShopTestandoApi.Services
             var response = await client.GetAsync($"Cidade/Nome/{nome}");
             var context = await response.Content.ReadAsStringAsync();
             var pessoas = JsonConvert.DeserializeObject<Cidade>(context);
+        }
+
+        public async Task<CidadeViewModel> CreateCidade(CidadeInputModel Input)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:5001/api/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var cidade = new Cidade(Input.Nome,Input.UF);
+
+            var jsonContent = JsonConvert.SerializeObject(cidade);
+            var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            contentString.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Json);
+            HttpResponseMessage responsePost = await client.PostAsync("Cidade/Resultado", contentString);
+            MessageBox.Show(jsonContent);
+            return cidade.ParaViewModel();
         }
     }
 }

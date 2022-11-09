@@ -12,7 +12,7 @@ namespace petShopTestandoApi.Model.Input
     [NotMapped]
         public class AnimaisInputModel
         {
-        public AnimaisInputModel(string raca, string nome, Pessoa responsavel, string situacao)
+        public AnimaisInputModel(string raca, string nome, Cliente responsavel, string situacao)
         {
             Raca = raca;
             Nome = nome;
@@ -27,7 +27,7 @@ namespace petShopTestandoApi.Model.Input
 
             public string Nome { get; set; }
             [Required]
-            public Pessoa Responsavel { get; set; }
+            public Cliente Responsavel { get; set; }
 
             [Required]
             public string Situacao { get; set; }

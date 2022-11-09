@@ -19,7 +19,9 @@ namespace petShopTestandoApi.Viwer
     {
         private IEnumerable<Cidade> _cidades;
 
+        ApiClient<PessoaInputModel> _apiClientePessoa = new ApiClient<PessoaInputModel>(new HttpClient());
         PessoasServices pessoasServices = new PessoasServices();
+        ApiClient<Cidade> _apiClient = new ApiClient<Cidade>(new HttpClient());
         //readonly IPessoaServices pessoasServices;
         CidadeServices _cidadeService = new CidadeServices();
 
@@ -31,16 +33,21 @@ namespace petShopTestandoApi.Viwer
         private async void btnCadastra_Click(object sender, EventArgs e)
         {
             var cidade = _cidades.FirstOrDefault(c => c.Nome == cmbCidade.Text);
-            var pessoa = new PessoaInputModel(txtNome.Text, cidade, dtNascimento.Value);
-            await pessoasServices.Create(pessoa);
-           if( MessageBox.Show("Usuario Cadastrado", "Cadastro Usuario", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+            var cliente = new PessoaInputModel(txtNome.Text, cidade, dtNascimento.Value);
+            
+
+            await pessoasServices.Create(cliente);
+
+            //await _apiClientePessoa.Create("Pessoa/Resultado", cliente);
+            if ( MessageBox.Show("Usuario Cadastrado", "Cadastro Usuario", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
                 this.Close();
         }
 
         private async void frmCadastroPessoa_LoadAsync(object sender, EventArgs e)
         {
 
-             _cidades = await _cidadeService.RetornarCidades();
+            //_cidades = await _cidadeService.RetornarCidades();
+            _cidades = await _apiClient.getAsync("Cidade");
             foreach (var Cidades in _cidades)
             {
                 cmbCidade.Items.Add(Cidades.Nome);

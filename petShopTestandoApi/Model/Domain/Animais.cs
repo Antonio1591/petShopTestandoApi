@@ -9,7 +9,7 @@ namespace petShopTestandoApi.Model.Domain
 {
     public class Animais
     {
-        public Animais(string raca, string nome, Pessoa responsavel, string situacao)
+        public Animais(string raca, string nome, Cliente responsavel, string situacao)
         {
             Raca = raca;
             Nome = nome;
@@ -20,7 +20,7 @@ namespace petShopTestandoApi.Model.Domain
         public int Id { get; set; }
         public string Raca { get; set; }
         public string Nome { get; set; }
-        public Pessoa Responsavel { get; set; }
+        public Cliente Responsavel { get; set; }
         public string Situacao { get; set; }
     }
 }

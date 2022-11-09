@@ -6,5 +6,6 @@ namespace petShopTestandoApi.Services
     {
         Task<IEnumerable<Cidade>> RetornarCidades();
         Task retornaCidade(string nome);
+        Task<CidadeViewModel> CreateCidade(CidadeInputModel cidadeInputModel);
     }
 }

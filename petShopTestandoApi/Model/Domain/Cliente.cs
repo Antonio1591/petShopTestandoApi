@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace petShopTestandoApi.Model.Domain
 {
-    public class Pessoa
+    public class Cliente
     {
-        public Pessoa(string nome, Cidade cidade, DateTime dataNascimento)
+        public Cliente(string nome, Cidade cidade, DateTime dataNascimento)
         {
             Nome = nome;
             Cidade = cidade;

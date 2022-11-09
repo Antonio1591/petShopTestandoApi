@@ -16,7 +16,7 @@ namespace petShopTestandoApi.Viwer
     public partial class frmCadastroAnimais : Form
     {
         private IEnumerable<PessoaViewModel> _pessoas;
-        private IEnumerable<Pessoa> _pessoasModel;
+        private IEnumerable<Cliente> _pessoasModel;
         AnimaisServices _animaisServices = new AnimaisServices();
         PessoasServices _pessoasServices = new PessoasServices();
         public frmCadastroAnimais()
