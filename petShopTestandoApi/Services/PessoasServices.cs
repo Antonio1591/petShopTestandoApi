@@ -18,20 +18,21 @@ namespace petShopTestandoApi.Services
     public class PessoasServices : IPessoaServices
     {
         ApiClient<PessoaInputModel> _apiClientePessoaImput = new ApiClient<PessoaInputModel>(new HttpClient());
-        ApiClient<Cliente> _apiClientePessoaViwer = new ApiClient<Cliente>(new HttpClient());
+        ApiClient<Cliente> _apiClientePessoa = new ApiClient<Cliente>(new HttpClient());
+        ApiClient<PessoaViewModel> _apiClientePessoaViwer = new ApiClient<PessoaViewModel>(new HttpClient());
         ApiClient<Cidade> _apiClient = new ApiClient<Cidade>(new HttpClient());
         CidadeServices _cidadeServices = new CidadeServices();
 
         private List<Cliente> _Pessoa;
         public async Task<IEnumerable<PessoaViewModel>> retornaAsync()
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:5001/api/");
-            var response = await client.GetAsync("Pessoa");
-            var context = await response.Content.ReadAsStringAsync();
-
-            var pessoas = JsonConvert.DeserializeObject<List<PessoaViewModel>>(context).ToList();
-            return pessoas;
+            //HttpClient client = new HttpClient();
+            //client.BaseAddress = new Uri("https://localhost:5001/api/");
+            //var response = await client.GetAsync("Pessoa");
+            //var context = await response.Content.ReadAsStringAsync();
+            //var pessoas = JsonConvert.DeserializeObject<List<PessoaViewModel>>(context).ToList();
+            //return pessoas;
+            return await _apiClientePessoaViwer.getAsync("Pessoa");
         }
 
         public async Task<PessoaViewModel> Create(PessoaInputModel imput)
@@ -59,7 +60,7 @@ namespace petShopTestandoApi.Services
             //var context = await response.Content.ReadAsStringAsync();
             //var pessoas = JsonConvert.DeserializeObject<List<Cliente>>(context).ToList();
             //return pessoas;
-            return await _apiClientePessoaViwer.getAsync("Pessoa/Busca");
+            return await _apiClientePessoa.getAsync("Pessoa/Busca");
         }
     }
 }

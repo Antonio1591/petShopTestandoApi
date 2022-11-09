@@ -19,6 +19,7 @@ namespace petShopTestandoApi.Viwer
         private IEnumerable<Cliente> _pessoasModel;
         AnimaisServices _animaisServices = new AnimaisServices();
         PessoasServices _pessoasServices = new PessoasServices();
+
         public frmCadastroAnimais()
         {
             InitializeComponent();
@@ -34,6 +35,8 @@ namespace petShopTestandoApi.Viwer
             var pessoa = _pessoasModel.FirstOrDefault(p=>p.Nome== cmbResponsvel.Text);
             var result = new AnimaisInputModel(txtRaca.Text, txtNome.Text, pessoa, cmbSituacao.Text);
             await _animaisServices.postAnimal(result);
+            if (MessageBox.Show("Animal Cadastrado", "Cadastro Animal", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+                this.Close();
         }
 
         private async void frmCadastroAnimais_Load(object sender, EventArgs e)

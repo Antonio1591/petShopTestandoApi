@@ -16,14 +16,17 @@ namespace petShopTestandoApi.Services
     [Route("https://localhost:5001/api/pessoa")]
     public class CidadeServices : ICidadeServices
     {
+        ApiClient<Cidade> _apiClient = new ApiClient<Cidade>(new HttpClient());
+
         public async Task<IEnumerable<Cidade>> RetornarCidades()
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:5001/api/");
-            var response = await client.GetAsync("Cidade");
-            var context = await response.Content.ReadAsStringAsync();
-            var cidades = JsonConvert.DeserializeObject<List<Cidade>>(context).ToList();
-            return cidades;
+            //HttpClient client = new HttpClient();
+            //client.BaseAddress = new Uri("https://localhost:5001/api/");
+            //var response = await client.GetAsync("Cidade");
+            //var context = await response.Content.ReadAsStringAsync();
+            //var cidades = JsonConvert.DeserializeObject<List<Cidade>>(context).ToList();
+            //return cidades;
+            return await _apiClient.getAsync("Cidade") ;
         }
 
         public async Task retornaCidade(string nome)
@@ -37,17 +40,17 @@ namespace petShopTestandoApi.Services
 
         public async Task<CidadeViewModel> CreateCidade(CidadeInputModel Input)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:5001/api/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var cidade = new Cidade(Input.Nome,Input.UF);
-
-            var jsonContent = JsonConvert.SerializeObject(cidade);
-            var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            contentString.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Json);
-            HttpResponseMessage responsePost = await client.PostAsync("Cidade/Resultado", contentString);
-            MessageBox.Show(jsonContent);
+            //HttpClient client = new HttpClient();
+            //client.BaseAddress = new Uri("https://localhost:5001/api/");
+            //client.DefaultRequestHeaders.Accept.Clear();
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //var jsonContent = JsonConvert.SerializeObject(cidade);
+            //var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            //contentString.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Json);
+            //HttpResponseMessage responsePost = await client.PostAsync("Cidade/Resultado", contentString);
+            var cidade = new Cidade(Input.Nome, Input.UF);
+            //MessageBox.Show(jsonContent);
+           await _apiClient.Create("Cidade/Resultado",cidade);
             return cidade.ParaViewModel();
         }
     }

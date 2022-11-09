@@ -19,12 +19,14 @@ namespace petShopTestandoApi.Viwer
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if (txtNome.Text == "" || txtUF.Text == "") return;
 
             var cidade = new CidadeInputModel(txtNome.Text,txtUF.Text);
-            _cidadeServices.CreateCidade(cidade);
+           await _cidadeServices.CreateCidade(cidade);
+           if (MessageBox.Show("Cidade Cadastrado", "Cadastro Cidade", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+                this.Close();
         }
     }
 }
